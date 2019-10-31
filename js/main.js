@@ -4,6 +4,9 @@ const config = {
 
 $(document).ready(() => {
     checktoken()
+
+    // news section
+    getNews()
 })
 
 
@@ -154,3 +157,52 @@ function signOut() {
         checktoken()
     });
 }
+
+// News Section
+
+function getNews() {
+  
+  return $.ajax({
+    url: 'https://newsapi.org/v2/top-headlines?country=id&apiKey=bd771c5150ff4909afb849e07054418a',
+    method: 'get'
+  })
+  .done(news => {
+    news.articles.forEach(article => {
+      let params = {
+        title: article.title,
+        desc: article.description,
+        imgSrc: article.urlToImage,
+        date: article.publishedAt,
+        source: article.source.name,
+        link: article.url
+      }
+      console.log("ini imgSrc", params.imgSrc);
+        $("#berita").prepend(renderNews(params))
+      })
+    })
+    .fail(err => console.log(err))
+}
+
+function renderNews(params) {
+  let options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'  
+  }
+  let rendering = 
+  `
+  <div class="card m-3 shadow" style="width: 50%; margin: 2% auto !important;">
+      <img src="${params.imgSrc}" class="card-img-top" alt="..."></img>
+      <div class="card-body">
+        <h5 class="card-title">${params.title}</h5>
+        <p class="card-text">${params.desc}</p>
+        <p class="card-text">${new Date(params.date).toLocaleDateString('id-ID', options)}</p>
+        <a href="${params.link}" class="btn btn-primary">Tautan artikel</a>
+      </div>
+  </div>
+  
+  ` 
+  return rendering
+}
+
