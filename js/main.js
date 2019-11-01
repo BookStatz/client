@@ -34,8 +34,8 @@ function checktoken() {
 }
 
 function displayLogin() {
-    $('#login-form').hide()
-    $('#register-form').show()
+    $('#login-form').show()
+    $('#register-form').hide()
     $('#logo').hide()
 }
 
@@ -75,11 +75,6 @@ function register(e) {
                 text: 'Something went wrong!'
             })
         })
-}
-
-function displayLogin() {
-    $('#register-form').hide()
-    $('#login-form').show()
 }
 
 function login(e) {
