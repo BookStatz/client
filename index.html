@@ -94,8 +94,8 @@
             <button id="side-profile" onclick="displayBookmarks()" type="button" class="btn btn-light btn-lg sides">Bookmarks</button><br><br>
             <button onclick="displayNews()" id="side-news" type="button" class="btn btn-light btn-lg side-menu">News</button>
             <br><br>
-            <button id="side-project" type="button" class="btn btn-light btn-lg side-menu">Events</button> <br><br>
-            <button id="side-project" type="button" class="btn btn-light btn-lg side-menu">Stocks</button>
+            <button id="side-project" onclick="displayEvents()" type="button" class="btn btn-light btn-lg side-menu">Events</button> <br><br>
+            <button id="side-project" onclick="displayStock()" type="button" class="btn btn-light btn-lg side-menu">Stocks</button>
           </center>
         </div>
       </div>
@@ -113,18 +113,40 @@
           <div id="headlines-searched"></div>
         </div>
 
+        <!-- Event -->
+        <div id="events">
+            <h1 id="header" class="text-center">Events today!</h1>
+            <br>
+            <form class="form-inline my-2 my-lg-0">
+              <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Search event..."
+                aria-label="Search">
+              <button id="search-button" onclick="searchEvent(event)" class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">Search</button>
+            </form>
+            <div id="headlines-container overflow-auto">
+              <div id="headlines-default2"></div>
+              <div id="headlines-searched"></div>
+            </div>
+          </div>
+
+          <!-- CHART -->
+          <div class="chart">
+              <div id="chart_container" style="width: 80%; height: 80%"></div>
+              <div id="chart_container1">
+                  <button type="button" class="btn btn-primary" id="7days" style="margin-bottom: 10px;">Show last 7
+                      Days</button>
+              </div>
+          </div>
+          <div id="chart_div" style="width: 500px; height: 500px;"></div>
+          <!--Div that will hold the pie chart-->
+          <div id="chart_div"></div>
+
         <div id="bookmarks"> 
           <div class="container">
             <div class="row">
-              <div class="col-sm-4">
-                <center><h2 id="forborder"> News </h2></center>
+              <div class="col-sm-8">
+                <center><h2 id="for-border"> News </h2></center>
                 <div id="news-fav">
-                  
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <center><h2 id="forborder"> Events </h2></center>
-                <div id="event-fav">
                   
                 </div>
               </div>
@@ -140,6 +162,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
