@@ -5,14 +5,15 @@ const config = {
 $(document).ready(() => {
   checktoken()
   $('#news').hide()
+  $('#events').hide()
 })
 
 
 function checktoken() {
   const token = localStorage.getItem('token')
 
-function displayLogin() {
-    $('#login-form').show()
+// function displayLogin() {
+//     $('#login-form').show()
   if (token) {
     $('#login-form').hide()
     $('#register-form').hide()
@@ -244,6 +245,88 @@ function renderNews(params) {
         <p class="card-text">${params.desc}</p>
         <p class="card-text">${new Date(params.date).toLocaleDateString('id-ID', options)}</p>
         <a href="${params.link}" class="btn btn-primary">Tautan artikel</a>
+      </div>
+  </div>
+  
+  `
+  return rendering
+}
+
+// Events
+
+function displayEvents() {
+  $('#events').show()
+  getEvents()
+}
+
+function getEvents() {
+  return $.ajax({
+    url: `http://localhost:3000/eventbrite/categories`,
+    method: 'get'
+  })
+    .done(data => {
+      data.categories.forEach(event => {
+        console.log("ini events");
+        
+        let params = {
+          title: event.name,
+          link: event.resource_uri
+        }
+        $("#events #headlines-default").append(renderEvents(params))
+      })
+    })
+    .fail(err => {
+      console.log(err)
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      })
+    })
+}
+
+function searchEvent(event) {
+  event.preventDefault()
+  let query = $("#events #search").val()
+  getSearchedEvent(query)
+}
+
+function getSearchedEvent(query) {
+  return $.ajax({
+    url: `http://localhost:3000/eventbrite/name`,
+    method: 'get',
+    data: {
+      query: query
+    }
+  })
+    .done(data => {
+      $("#events #header").text('Hasil Pencarian')
+      $("#events #headlines-default").hide()
+      data.events.forEach(event => {
+        let params = {
+          title: event.name,
+          link: event.url,
+        }
+        $("#events #headlines-searched").append(renderEvents(params))
+      })
+    })
+    .fail(err => {
+      console.log(err)
+      Swal.fire({
+        type: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      })
+    })
+}
+
+function renderEvents(params) {
+  let rendering =
+    `
+  <div class="card m-3 shadow" style="width: 100%; margin: 2% auto !important;">
+      <div class="card-body">
+        <h5 class="card-title">${params.title}</h5>
+        <a href="${params.link}" class="btn btn-primary">Tautan</a>
       </div>
   </div>
   

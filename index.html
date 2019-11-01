@@ -92,9 +92,10 @@
           <h4 id="menu">Menu</h4> <br>
           <center>
             <button id="side-profile" type="button" class="btn btn-light btn-lg sides">Bookmarks</button><br><br>
-            <button onclick="displayNews()" id="side-news" type="button" class="btn btn-light btn-lg side-menu">News</button>
+            <button onclick="displayNews()" id="side-news" type="button"
+              class="btn btn-light btn-lg side-menu">News</button>
             <br><br>
-            <button id="side-project" type="button" class="btn btn-light btn-lg side-menu">Events</button> <br><br>
+            <button onclick="displayEvents()" id="side-events" type="button" class="btn btn-light btn-lg side-menu">Events</button> <br><br>
             <button id="side-project" type="button" class="btn btn-light btn-lg side-menu">Stocks</button>
           </center>
         </div>
@@ -106,12 +107,32 @@
           <h1 id="header" class="text-center">Berita Utama Hari Ini</h1>
           <br>
           <form class="form-inline my-2 my-lg-0">
-              <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Cari berita..." aria-label="Search">
-              <button id="search-button" onclick="searchNews(event)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
-            </form>
-          <div id="headlines-default"></div>
-          <div id="headlines-searched"></div>
+            <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Cari berita..."
+              aria-label="Search">
+            <button id="search-button" onclick="searchNews(event)" class="btn btn-outline-success my-2 my-sm-0"
+              type="submit">Cari</button>
+          </form>
+          <div id="headlines-container overflow-auto">
+            <div id="headlines-default"></div>
+            <div id="headlines-searched"></div>
+          </div>
         </div>
+
+        <!-- Event -->
+        <div id="events">
+            <h1 id="header" class="text-center">Events Di Sekitarmu</h1>
+            <br>
+            <form class="form-inline my-2 my-lg-0">
+              <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Cari event..."
+                aria-label="Search">
+              <button id="search-button" onclick="searchEvent(event)" class="btn btn-outline-success my-2 my-sm-0"
+                type="submit">Cari</button>
+            </form>
+            <div id="headlines-container overflow-auto">
+              <div id="headlines-default"></div>
+              <div id="headlines-searched"></div>
+            </div>
+          </div>
 
       </div>
     </div>

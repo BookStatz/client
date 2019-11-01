@@ -337,3 +337,8 @@
 	border-right: 1px solid black;
 }
 
+/* News */
+
+#headlines-container {
+  height: 50%;
+}
