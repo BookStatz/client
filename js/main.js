@@ -280,7 +280,7 @@ function getEvents() {
       Swal.fire({
         type: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!'
+        text: 'Your rate is limited!'
       })
     })
 }
@@ -304,10 +304,14 @@ function getSearchedEvent(query) {
       $("#events #headlines-default").hide()
       data.events.forEach(event => {
         let params = {
-          title: event.name,
+          title: event.name.text,
+          imgSrc: event.logo.url,
+          desc: event.description.text,
+          startDate: event.start.utc,
+          endDate: event.end.utc,
           link: event.url,
         }
-        $("#events #headlines-searched").append(renderEvents(params))
+        $("#events #headlines-searched").append(renderSearchedEvents(params))
       })
     })
     .fail(err => {
@@ -315,7 +319,7 @@ function getSearchedEvent(query) {
       Swal.fire({
         type: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!'
+        text: 'Your rate is limited!'
       })
     })
 }
@@ -327,6 +331,31 @@ function renderEvents(params) {
       <div class="card-body">
         <h5 class="card-title">${params.title}</h5>
         <a href="${params.link}" class="btn btn-primary">Tautan</a>
+      </div>
+  </div>
+  
+  `
+  return rendering
+}
+
+function renderSearchedEvents(params) {
+  let options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  }
+  let rendering =
+    `
+  <div class="card m-3 shadow" style="width: 100%; margin: 2% auto !important;">
+      <img src="${params.imgSrc}" class="card-img-top" alt="..."></img>
+      <div class="card-body">
+        <h5 class="card-title">${params.title}</h5>
+        <p class="card-text">${params.desc}</p>
+        <p class="card-text">${new Date(params.startDate).toLocaleDateString('id-ID', options)} - ${new Date(params.endDate).toLocaleDateString('id-ID', options)}</p>
+        <a href="${params.link}" class="btn btn-primary">Tautan artikel</a>
       </div>
   </div>
   
