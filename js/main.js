@@ -17,6 +17,7 @@ function checktoken() {
         $('#nav-login').hide()
         $('#nav-register').hide()
         $('#nav-logout').show()
+        $('#sidebar').show()
 
     } else {
         $('#nav-logout').hide()
@@ -27,6 +28,7 @@ function checktoken() {
         $('#nav-register').show()
         $('#login-form').hide()
         $('#register-form').hide()
+        $('#sidebar').hide()
        
     }
 }
