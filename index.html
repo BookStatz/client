@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id"
     content="892845584166-gl7d7hdkqkrr49o5cnfnd7s35dsgjti5.apps.googleusercontent.com">
-
   <title>All About Today</title>
 
+    <!-- CHART CDN -->
+    <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -51,8 +53,6 @@
         <div id="gsignin" class="g-signin2" data-onsuccess="onSignIn"></div>
       </form>
     </center>
-  </div>
-
   <!--Register-->
   <center>
     <div id="register-form" class="register-container">
@@ -112,6 +112,20 @@
           <div id="headlines-default"></div>
           <div id="headlines-searched"></div>
         </div>
+    </center>
+
+
+    <!-- CHART -->
+    <div class="chart">
+        <div id="chart_container" style="width: 80%; height: 80%"></div>
+        <div id="chart_container1">
+            <button type="button" class="btn btn-primary" id="7days" style="margin-bottom: 10px;">Show last 7
+                Days</button>
+        </div>
+    </div>
+    <div id="chart_div" style="width: 500px; height: 500px;"></div>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
 
         <div id="bookmarks"> 
           <div class="container">
