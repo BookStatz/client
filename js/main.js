@@ -11,6 +11,8 @@ $(document).ready(() => {
 function checktoken() {
   const token = localStorage.getItem('token')
 
+function displayLogin() {
+    $('#login-form').show()
   if (token) {
     $('#login-form').hide()
     $('#register-form').hide()
@@ -76,11 +78,6 @@ function register(e) {
         text: 'Something went wrong!'
       })
     })
-}
-
-function displayLogin() {
-  $('#register-form').hide()
-  $('#login-form').show()
 }
 
 function login(e) {
