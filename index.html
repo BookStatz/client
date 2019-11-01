@@ -91,7 +91,7 @@
         <div id="sidebar">
           <h4 id="menu">Menu</h4> <br>
           <center>
-            <button id="side-profile" type="button" class="btn btn-light btn-lg sides">Bookmarks</button><br><br>
+            <button id="side-profile" onclick="displayBookmarks()" type="button" class="btn btn-light btn-lg sides">Bookmarks</button><br><br>
             <button onclick="displayNews()" id="side-news" type="button" class="btn btn-light btn-lg side-menu">News</button>
             <br><br>
             <button id="side-project" type="button" class="btn btn-light btn-lg side-menu">Events</button> <br><br>
@@ -103,14 +103,33 @@
 
         <!-- News -->
         <div id="news">
-          <h1 id="header" class="text-center">Berita Utama Hari Ini</h1>
+          <h1 id="header" class="text-center">News today!</h1>
           <br>
           <form class="form-inline my-2 my-lg-0">
-              <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Cari berita..." aria-label="Search">
-              <button id="search-button" onclick="searchNews(event)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Cari</button>
+              <input id="search" class="flex-column form-control mr-sm-2" type="search" placeholder="Search news..." aria-label="Search">
+              <button id="search-button" onclick="searchNews(event)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
           <div id="headlines-default"></div>
           <div id="headlines-searched"></div>
+        </div>
+
+        <div id="bookmarks"> 
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4">
+                <center><h2 id="forborder"> News </h2></center>
+                <div id="news-fav">
+                  
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <center><h2 id="forborder"> Events </h2></center>
+                <div id="event-fav">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

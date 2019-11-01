@@ -337,3 +337,17 @@
 	border-right: 1px solid black;
 }
 
+#news-card {
+	width: 800px;
+	height: 700px;
+}
+
+#news-img {
+	width: 800px;
+	height: 400px
+}
+
+#news-fav {
+	border-right: 1px solid black;
+}
+

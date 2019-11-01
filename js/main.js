@@ -4,15 +4,14 @@ const config = {
 
 $(document).ready(() => {
   checktoken()
-  $('#news').hide()
+
+  // $('#news').hide()
 })
 
 
 function checktoken() {
   const token = localStorage.getItem('token')
 
-function displayLogin() {
-    $('#login-form').show()
   if (token) {
     $('#login-form').hide()
     $('#register-form').hide()
@@ -21,6 +20,8 @@ function displayLogin() {
     $('#nav-register').hide()
     $('#nav-logout').show()
     $('#sidebar').show()
+    $('#bookmarks').hide()
+    getNews()
 
   } else {
     $('#nav-logout').hide()
@@ -37,8 +38,8 @@ function displayLogin() {
 }
 
 function displayLogin() {
-  $('#login-form').hide()
-  $('#register-form').show()
+  $('#login-form').show()
+  $('#register-form').hide()
   $('#logo').hide()
 }
 
@@ -46,6 +47,12 @@ function displayRegister() {
   $('#login-form').hide()
   $('#register-form').show()
   $('#logo').hide()
+}
+
+function displayBookmarks() {
+  displayNewsBookmarks()
+  $('#bookmarks').show()
+  $('#news').hide()
 }
 
 function register(e) {
@@ -202,7 +209,7 @@ function getSearchedNews(query) {
     method: 'get'
   })
     .done(news => {
-      $("#news #header").text('Hasil Pencarian')
+      $("#news #header").text('Search result')
       $("#news #headlines-default").hide()
       news.articles.forEach(article => {
         let params = {
@@ -237,16 +244,93 @@ function renderNews(params) {
   }
   let rendering =
     `
-  <div class="card m-3 shadow" style="width: 100%; margin: 2% auto !important;">
-      <img src="${params.imgSrc}" class="card-img-top" alt="..."></img>
-      <div class="card-body">
-        <h5 class="card-title">${params.title}</h5>
-        <p class="card-text">${params.desc}</p>
-        <p class="card-text">${new Date(params.date).toLocaleDateString('id-ID', options)}</p>
-        <a href="${params.link}" class="btn btn-primary">Tautan artikel</a>
+    <div id="news-card">
+      <div class="card m-3 shadow" style="width: 100%; margin: 2% auto !important;">
+        <img id="news-img" src="${params.imgSrc}" class="card-img-top" alt="..."></img>
+        <div class="card-body">
+          <h5 class="card-title">${params.title}</h5>
+          <p class="card-text">${params.desc}</p>
+          <p class="card-text">${new Date(params.date).toLocaleDateString('id-ID', options)}</p>
+          <center><button onclick="addNews('${params.title}', '${params.desc}', '${params.imgSrc}')" type="button" class="btn btn-success">Add to Bookmarks</button> <a href="${params.link}" class="btn btn-primary">Details</a></center>
+        </div>
       </div>
-  </div>
+    </div>
   
   `
   return rendering
+}
+
+function addNews(title, desc, img) {
+  const token = localStorage.getItem('token')
+
+  $.ajax({
+    method: 'post',
+    url: `${config.host}/bookmarks/news`,
+    data: {
+      title: title,
+      description: desc,
+      img: img
+    },
+    headers: { token }
+  })
+    .then(result => {
+      Swal.fire(
+        'Added to Bookmarks',
+        'Success',
+        'success'
+      )
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+function removeNews(id) {
+  const token = localStorage.getItem('token')
+
+  $.ajax({
+    method: 'delete',
+    url: `${config.host}/bookmarks/news/${id}`,
+    headers: { token }
+  })
+    .then(result => {
+      displayNewsBookmarks()
+      Swal.fire(
+        'Removed from Bookmarks',
+        'Success',
+        'success'
+      )
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+function displayNewsBookmarks() {
+  const token = localStorage.getItem('token')
+  $('#news-fav').empty()
+
+  $.ajax({
+    method: 'get',
+    url: `${config.host}/bookmarks/news`,
+    headers: {token}
+  })
+    .then(result => {
+      console.log(result)
+      for (let i = 0; i < result.length; i++) {
+        $('#news-fav').append(`
+        <center>
+        <div class="card" style="width: 25rem;">
+          <img src="${result[i].img}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${result[i].title}</h5>
+            <p class="card-text">${result[i].description}</p>
+            <a href="#" onclick="removeNews('${result[i]._id}')" class="btn btn-danger">Remove</a>
+          </div>
+        </div>
+        </center> <br><br>
+        `)
+      }
+      
+    })
 }
