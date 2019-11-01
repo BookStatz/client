@@ -236,18 +236,33 @@
 	font-size: 20px;
 	height: 60px;
 	width: 180px;
-	background-color: rgb(231, 166, 25);
-	color: black;
+	background-color: rgb(10, 109, 202);
+	color: white;
 	transition: all 0.1s ease-in-out;
 }
 
 .side-menu:hover {
-	background-color: #34495e;
+	background-color: #24282c;
 	color: white;
 	font-weight: bold;
 	transform: rotate(10deg);
 }
 
+.sides {
+	background-color: green;
+	font-size: 20px;
+	height: 60px;
+	width: 180px;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+.sides:hover {
+	background-color: #e4d612;
+	color: rgb(0, 0, 0);
+	font-weight: bold;
+	transform: rotate(10deg);
+}
 #nav-logo {
 	height:100px;
 	width: 180px;
@@ -271,7 +286,7 @@
 
 #sidebar {
 	height: 1200px;
-	width: 400px;
+	width: 300px;
 	font-weight: bold;
 	background-color: #343A40;
 	padding: 20px;
