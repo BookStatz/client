@@ -1,3 +1,5 @@
+import { EventEmitter } from "events"
+
 const config = {
     host: 'http://localhost:3000'
 }
@@ -6,6 +8,13 @@ $(document).ready(() => {
     checktoken()
 
     // news section
+
+    // yg fitur search perlu diperbaikin
+    $("#news #search .submit").click(function(event){
+      event.preventDefault()
+      console.log(('#news #search .submit').val());
+    })
+
     getNews()
 })
 
@@ -160,13 +169,18 @@ function signOut() {
 
 // News Section
 
+function searchNews() {
+
+}
+
 function getNews() {
-  
   return $.ajax({
-    url: 'https://newsapi.org/v2/top-headlines?country=id&apiKey=bd771c5150ff4909afb849e07054418a',
+    url: 'http://localhost:3000/news/top-headlines',
     method: 'get'
   })
   .done(news => {
+    console.log("ini news", news);
+    
     news.articles.forEach(article => {
       let params = {
         title: article.title,
@@ -176,8 +190,7 @@ function getNews() {
         source: article.source.name,
         link: article.url
       }
-      console.log("ini imgSrc", params.imgSrc);
-        $("#berita").prepend(renderNews(params))
+        $("#news #headlines").prepend(renderNews(params))
       })
     })
     .fail(err => console.log(err))
